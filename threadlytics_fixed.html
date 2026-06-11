@@ -521,9 +521,9 @@ footer { background: #0A0A12; padding: 60px 52px 36px; border-top: 1px solid rgb
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#how-it-works">How it works</a>
-    <a href="#setup">Get started</a>
+    <a href="/signup">Get started</a>
     <a href="#pricing">Pricing</a>
-    <a href="#setup" class="nav-cta">Start free trial</a>
+    <a href="/signup" class="nav-cta">Start free trial</a>
   </div>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -535,8 +535,8 @@ footer { background: #0A0A12; padding: 60px 52px 36px; border-top: 1px solid rgb
   <a href="#features" class="mob-link">Features</a>
   <a href="#how-it-works" class="mob-link">How it works</a>
   <a href="#pricing" class="mob-link">Pricing</a>
-  <a href="#setup" class="mob-link">Get started</a>
-  <a href="#setup" class="mob-cta">Start free trial</a>
+  <a href="/signup" class="mob-link">Get started</a>
+  <a href="/signup" class="mob-cta">Start free trial</a>
 </div>
 
 <!-- HERO -->
@@ -560,7 +560,7 @@ footer { background: #0A0A12; padding: 60px 52px 36px; border-top: 1px solid rgb
   </p>
 
   <div class="hero-btns">
-    <a href="#setup" class="btn btn-teal">Start for free — no setup needed</a>
+    <a href="/signup" class="btn btn-teal">Start for free — no setup needed</a>
     <a href="#features" class="btn btn-secondary">See all features</a>
   </div>
 
@@ -721,43 +721,28 @@ footer { background: #0A0A12; padding: 60px 52px 36px; border-top: 1px solid rgb
       </div>
     </div>
     <div class="sr d1">
-      <div class="code-block">
-        <div class="code-header"><span>terminal</span><span>bash</span></div>
-        <div class="code-body"><pre>
-<span class="comment"># 1. Unzip and enter folder</span>
-<span class="cmd">cd</span> threadlytics/
-
-<span class="comment"># 2. Install dependencies</span>
-<span class="cmd">pip install</span> -r requirements.txt
-
-<span class="comment"># 3a. Set API key — Mac / Linux</span>
-<span class="cmd">export</span> ANTHROPIC_API_KEY=<span class="string">sk-ant-...</span>
-
-<span class="comment"># 3b. Set API key — Windows</span>
-<span class="cmd">set</span> ANTHROPIC_API_KEY=<span class="string">sk-ant-...</span>
-
-<span class="comment"># 4. Start the app</span>
-<span class="cmd">python</span> app.py
-
-<span class="comment"># 5. Open in browser</span>
-<span class="comment"># → http://localhost:5000</span>
-        </pre></div>
+      <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:16px;padding:32px;box-shadow:0 4px 24px rgba(0,0,0,0.06)">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">Start in 2 minutes</div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+            <div style="font-size:14px;color:var(--text1);font-weight:500">Visit <strong>threadlytics.ai</strong> and create your free account</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+            <div style="font-size:14px;color:var(--text1);font-weight:500">Upload your CSV or Excel — columns auto-detected</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+            <div style="font-size:14px;color:var(--text1);font-weight:500">Your dashboard populates instantly — ask the AI anything</div>
+          </div>
+        </div>
+        <a href="/signup" style="display:block;text-align:center;padding:14px;background:var(--teal);color:#fff;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;transition:opacity 0.2s" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Start free trial →</a>
+        <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--text2)">14 days free · no credit card · cancel any time</div>
       </div>
-      <div class="code-block" style="margin-top:14px">
-        <div class="code-header"><span>deploy to web (free)</span><span>netlify / railway</span></div>
-        <div class="code-body"><pre>
-<span class="comment"># Deploy the marketing site in 30 seconds</span>
-<span class="comment"># Drag the .html file to:</span>
-<span class="string">app.netlify.com/drop</span>
-
-<span class="comment"># For the full app, use Railway or Render</span>
-<span class="string">railway.app</span>  <span class="comment"># easiest for Flask apps</span>
-<span class="string">render.com</span>   <span class="comment"># free tier available</span>
-        </pre></div>
-      </div>
-      <div style="margin-top:16px;padding:14px 16px;background:#FFFFFF;border:1px solid rgba(14,165,233,0.18);border-left:3px solid var(--teal);border-radius:var(--r2)">
+      <div style="margin-top:14px;padding:14px 16px;background:#FFFFFF;border:1px solid rgba(14,165,233,0.18);border-left:3px solid var(--teal);border-radius:var(--r2)">
         <div style="font-size:12px;color:var(--teal);font-weight:600;margin-bottom:4px">Supported data formats</div>
-        <div style="font-size:12px;color:var(--text2)">CSV · XLSX · XLS · Up to 32 MB · Any column layout that includes SKU, UnitsSold, Revenue, StockOnHand</div>
+        <div style="font-size:12px;color:var(--text2)">CSV · XLSX · XLS · Any column layout that includes SKU, UnitsSold, Revenue, StockOnHand</div>
       </div>
     </div>
   </div>
@@ -794,7 +779,7 @@ footer { background: #0A0A12; padding: 60px 52px 36px; border-top: 1px solid rgb
         <li><span class="chk">✓</span>50 AI chat messages / month</li>
         <li><span class="chk">✓</span>CSV export</li>
       </ul>
-      <a href="#setup" class="plan-btn outline">Get started</a>
+      <a href="/signup" class="plan-btn outline">Get started</a>
     </div>
 
     <!-- GROWTH (popular) -->
@@ -813,7 +798,7 @@ footer { background: #0A0A12; padding: 60px 52px 36px; border-top: 1px solid rgb
         <li><span class="chk">✓</span>Weekly email trading brief</li>
         <li><span class="chk">✓</span>Excel + CSV export</li>
       </ul>
-      <a href="#setup" class="plan-btn primary">Start free trial</a>
+      <a href="/signup" class="plan-btn primary">Start free trial</a>
       <div class="plan-annual-note" id="growth-saving">You save £360/year</div>
     </div>
 
@@ -844,7 +829,7 @@ footer { background: #0A0A12; padding: 60px 52px 36px; border-top: 1px solid rgb
   <h2 class="sr d1">Stop guessing.<br><span class="hl">Start merchandising.</span></h2>
   <p class="sub sr d2">Upload your first trading file in under a minute. No setup call, no contract. Cancel any time.</p>
   <div class="hero-btns sr d3" style="justify-content:center">
-    <a href="#setup" class="btn btn-teal">Start your free trial</a>
+    <a href="/signup" class="btn btn-teal">Start your free trial</a>
     <a href="#features" class="btn btn-secondary" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.6)">See all features</a>
   </div>
 </section>
@@ -860,15 +845,15 @@ footer { background: #0A0A12; padding: 60px 52px 36px; border-top: 1px solid rgb
       <h4>Product</h4>
       <a href="#features">Features</a>
       <a href="#pricing">Pricing</a>
-      <a href="#setup">Setup guide</a>
+      <a href="/signup">Setup guide</a>
       <a href="mailto:hello@threadlytics.ai">Contact</a>
     </div>
     <div class="foot-col">
       <h4>Resources</h4>
       <a href="#how-it-works">How it works</a>
       <a href="#ai-demo">AI agent demo</a>
-      <a href="#setup">Run locally</a>
-      <a href="#setup">Deploy to web</a>
+      <a href="/signup">Run locally</a>
+      <a href="/signup">Deploy to web</a>
     </div>
     <div class="foot-col">
       <h4>Legal</h4>
