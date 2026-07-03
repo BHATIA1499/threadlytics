@@ -3440,6 +3440,23 @@ function sampleApi(method, url, body){
     const fb = SAMPLE_WS.files.find(f=>f.id===qs.get('b'));
     return Promise.resolve(buildSampleCompareEntities(fa,fb));
   }
+  // permanent delete — actually remove from the in-memory sample set
+  const delMatch = u.match(/^\/api\/workspace\/file\/([^/]+)\/delete$/);
+  if (delMatch){
+    const id = delMatch[1];
+    SAMPLE_WS.files = SAMPLE_WS.files.filter(f=>f.id!==id);
+    SAMPLE_WS.counts = {
+      active:  SAMPLE_WS.files.filter(f=>!f.archived&&!f.trashed).length,
+      archived:SAMPLE_WS.files.filter(f=>f.archived&&!f.trashed).length,
+      trash:   SAMPLE_WS.files.filter(f=>f.trashed).length,
+    };
+    return Promise.resolve({ ok:true, deleted:id });
+  }
+  if (u==='/api/data/delete-all'){
+    SAMPLE_WS.files = [];
+    SAMPLE_WS.counts = {active:0,archived:0,trash:0};
+    return Promise.resolve({ ok:true, deleted_count:0 });
+  }
   // mutations (rename/tag/archive/trash/switch) are no-ops in sample mode
   return Promise.resolve({ ok:true });
 }
@@ -3924,7 +3941,8 @@ function renderFiles(list){
     const keyRec = (f.recs && f.recs[0]) ? f.recs[0].t : (f.top_opportunity ? f.top_opportunity.t : '');
     let actions;
     if (wsView==='trash'){
-      actions = `<button class="ws-btn" onclick="wsTrash('${f.id}',false)">↩︎ Restore</button>`;
+      actions = `<button class="ws-btn" onclick="wsTrash('${f.id}',false)">↩︎ Restore</button>`+
+        `<button class="ws-btn danger" onclick="wsDeleteForever('${f.id}','${escapeHtml(f.display_name).replace(/'/g,"\\'")}')">✗ Delete permanently</button>`;
     } else {
       actions =
         `<button class="ws-btn primary" onclick="wsSwitchTo('${f.id}')">${isCur?'✓ Active':'Open Analysis'}</button>`+
@@ -4536,6 +4554,15 @@ async function wsTrash(id,val){
   if(val && !confirm('Move this file to Trash? Your analysis is kept and can be restored.')) return;
   try { await wsApi('POST','/api/workspace/file/'+id+'/update',{trashed:val}); wsLoadFiles(); refreshDatasetSwitcher(); }
   catch(e){ showUploadToast('error','Action failed',e.message,5000); }
+}
+async function wsDeleteForever(id,name){
+  if(!confirm('Permanently delete "'+(name||'this file')+'"?\n\nThis erases the dataset and its analysis from our servers for good. It cannot be undone.')) return;
+  try {
+    await wsApi('POST','/api/workspace/file/'+id+'/delete');
+    if(currentUploadId===id){ currentUploadId=null; }
+    showUploadToast('success','Deleted','That dataset has been permanently erased.',4000);
+    wsLoadFiles(); refreshDatasetSwitcher();
+  } catch(e){ showUploadToast('error','Delete failed',e.message,5000); }
 }
 
 // ── Dataset switcher (topbar) ─────────────────────────────────

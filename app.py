@@ -2449,6 +2449,76 @@ def workspace_update_file(user, upload_id):
         return jsonify({"error": str(e)}), 500
 
 
+@app.route("/api/workspace/file/<upload_id>/delete", methods=["POST", "DELETE"])
+@require_auth
+def workspace_delete_file(user, upload_id):
+    """
+    PERMANENTLY erase one uploaded dataset.
+
+    Unlike 'trash' (which only sets a hidden flag), this hard-deletes the
+    row from the database — the derived analysis, KPIs, filename and hash
+    are all removed and cannot be recovered. This is the user-facing
+    'right to erasure' control: once deleted, the data is gone for good.
+    """
+    db = get_user_db()
+    try:
+        # Ownership check first — never delete another user's row.
+        row = db.table("uploads").select("id, filename") \
+            .eq("id", upload_id).eq("user_id", user["id"]).single().execute()
+        if not row.data:
+            return jsonify({"error": "File not found"}), 404
+        filename = row.data.get("filename")
+
+        db.table("uploads").delete() \
+            .eq("id", upload_id).eq("user_id", user["id"]).execute()
+
+        # If the deleted file was the active one, clear the session pointer.
+        if session.get("current_upload_id") == upload_id:
+            session.pop("current_upload_id", None)
+
+        audit.log(FILE_DELETED, request=request, user_id=user["id"],
+                  company_id=user.get("company_id"),
+                  resource=f"upload:{upload_id}",
+                  metadata={"filename": filename, "mode": "permanent"})
+        return jsonify({"ok": True, "deleted": upload_id})
+    except Exception as e:
+        app.logger.error(f"workspace_delete error: {e}", exc_info=True)
+        return jsonify({"error": "Could not delete file. Please try again."}), 500
+
+
+@app.route("/api/data/delete-all", methods=["POST"])
+@require_auth
+def delete_all_data(user):
+    """
+    PERMANENTLY erase ALL of this user's uploaded data in one action.
+
+    Requires an explicit confirmation phrase in the request body to guard
+    against accidental wipes. Hard-deletes every upload row belonging to
+    the user. Account, plan and billing are untouched.
+    """
+    body = request.get_json(silent=True) or {}
+    if (body.get("confirm") or "").strip().upper() != "DELETE":
+        return jsonify({"error": "Confirmation required."}), 400
+
+    db = get_user_db()
+    try:
+        existing = db.table("uploads").select("id") \
+            .eq("user_id", user["id"]).execute()
+        count = len(existing.data or [])
+
+        db.table("uploads").delete().eq("user_id", user["id"]).execute()
+        session.pop("current_upload_id", None)
+
+        audit.log(FILE_DELETED, request=request, user_id=user["id"],
+                  company_id=user.get("company_id"),
+                  resource="upload:all",
+                  metadata={"mode": "permanent", "count": count})
+        return jsonify({"ok": True, "deleted_count": count})
+    except Exception as e:
+        app.logger.error(f"delete_all_data error: {e}", exc_info=True)
+        return jsonify({"error": "Could not delete your data. Please try again."}), 500
+
+
 @app.route("/api/workspace/switch", methods=["POST"])
 @require_auth
 def workspace_switch(user):
