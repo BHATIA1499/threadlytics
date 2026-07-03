@@ -65,6 +65,11 @@ body{font-family:var(--body);background:var(--bg-grad);background-attachment:fix
 #topbar{background:rgba(255,255,255,0.80);backdrop-filter:blur(16px);border-bottom:1px solid rgba(168,197,160,0.18);
   padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:40}
 .topbar-left{display:flex;align-items:center;gap:14px}
+.nav-hamburger{display:none;align-items:center;justify-content:center;width:40px;height:40px;margin-left:-8px;
+  border:none;background:none;color:var(--text);border-radius:9px;cursor:pointer;flex-shrink:0;transition:background 0.15s}
+.nav-hamburger:hover{background:rgba(125,170,117,0.10)}
+#sb-scrim{display:none;position:fixed;inset:0;background:rgba(30,40,30,0.42);backdrop-filter:blur(1px);z-index:45}
+#sb-scrim.show{display:block}
 .topbar-title{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--text)}
 .role-badge{padding:3px 11px;border-radius:99px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:1.5px solid}
 .role-badge.MA{background:rgba(125,170,117,0.12);color:#4A7A42;border-color:rgba(125,170,117,0.35)}
@@ -458,16 +463,40 @@ tr:hover td{background:rgba(168,197,160,0.05);transition:background 0.1s}
   .kpi-grid-5{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:900px){
-  #sidebar{transform:translateX(-100%)}
-  #main{margin-left:0}
+  #sidebar{transform:translateX(-100%);box-shadow:0 0 40px rgba(0,0,0,0.18)}
+  #sidebar.open{transform:translateX(0)}
+  #main{margin-left:0;min-width:0}
+  .nav-hamburger{display:flex}
   .kpi-grid-3,.kpi-grid-4,.kpi-grid-5,.kpi-grid-6{grid-template-columns:1fr 1fr}
   .two-col,.two-col-60,.three-col,.vs-plan-cards,.risk-opp-wrap{grid-template-columns:1fr}
   .exec-content{flex-direction:column;gap:20px}
   .exec-meta{text-align:left}
+  /* Keep the topbar within the viewport: let the title shrink, keep controls fixed */
+  .topbar-left{min-width:0;flex:1;overflow:hidden}
+  .topbar-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .topbar-right{flex-shrink:0}
 }
 @media(max-width:600px){
   .kpi-grid-3,.kpi-grid-4,.kpi-grid-5,.kpi-grid-6{grid-template-columns:1fr}
   #content{padding:14px}
+  #topbar{padding:0 12px;height:52px;gap:8px}
+  .topbar-left{gap:9px}
+  .topbar-title{font-size:15px}
+  .role-badge{display:none}
+  .upload-btn-label{display:none}
+  .upload-btn{padding:8px 11px}
+  #topbar .ds-switcher .ds-label{display:none}
+  #topbar .ds-switcher select{max-width:118px;padding:7px 26px 7px 10px}
+  /* Trial banner: allow wrapping so CTA/close never overflow */
+  #trial-banner{flex-wrap:wrap;padding:10px 14px;gap:10px}
+  #trial-banner .tb-msg{flex:1 1 100%}
+  /* Wide data tables: scroll horizontally inside their card instead of crushing
+     columns — keeps figures readable and never overflows the page */
+  #content table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;max-width:100%}
+  #content th,#content td{padding:9px 12px}
+  /* AI chat: fit the viewport instead of a fixed 360px panel */
+  #ai-chat-panel{left:12px;right:12px;width:auto;bottom:84px;height:min(70vh,460px)}
+  #ai-chat-fab{bottom:20px;right:20px}
 }
 
 /* ── DATA WORKSPACE ── */
@@ -1079,6 +1108,9 @@ tr:hover td{background:rgba(168,197,160,0.05);transition:background 0.1s}
   </div>
 </nav>
 
+<!-- Mobile sidebar scrim -->
+<div id="sb-scrim" onclick="closeSidebar()"></div>
+
 <!-- MAIN -->
 <div id="main">
   <!-- TRIAL / UPGRADE BANNER (populated by renderTrialBanner) -->
@@ -1086,6 +1118,9 @@ tr:hover td{background:rgba(168,197,160,0.05);transition:background 0.1s}
   <!-- TOPBAR -->
   <div id="topbar">
     <div class="topbar-left">
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false" onclick="toggleSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <div class="topbar-title" id="topbar-title">Dashboard</div>
       <div class="role-badge AM" id="role-badge">AM</div>
     </div>
@@ -1096,7 +1131,7 @@ tr:hover td{background:rgba(168,197,160,0.05);transition:background 0.1s}
       </div>
       <button class="upload-btn" onclick="document.getElementById('file-input').click()">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Upload data
+        <span class="upload-btn-label">Upload data</span>
       </button>
     </div>
   </div>
@@ -4825,6 +4860,36 @@ async function logout() {
   await fetch('/auth/logout', {method:'POST', credentials:'include', headers: csrfToken?{'X-CSRF-Token':csrfToken}:{}});
   window.location.href = '/login';
 }
+
+// ── Mobile sidebar drawer ──────────────────────────────────────
+function openSidebar(){
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sb-scrim').classList.add('show');
+  const h=document.getElementById('nav-hamburger'); if(h) h.setAttribute('aria-expanded','true');
+  document.body.style.overflow='hidden';
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sb-scrim').classList.remove('show');
+  const h=document.getElementById('nav-hamburger'); if(h) h.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.contains('open') ? closeSidebar() : openSidebar();
+}
+// Close the drawer after tapping a nav destination (mobile only)
+document.getElementById('sidebar').addEventListener('click', function(e){
+  if(window.innerWidth>900) return;
+  if(e.target.closest('.nav-item, .sb-ws-btn, a[href]')) closeSidebar();
+});
+// Close on Escape
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape' && document.getElementById('sidebar').classList.contains('open')) closeSidebar();
+});
+// Reset drawer state when resizing back to desktop
+window.addEventListener('resize', function(){
+  if(window.innerWidth>900 && document.getElementById('sidebar').classList.contains('open')) closeSidebar();
+});
 
 // ── AI Chat ───────────────────────────────────────────────────
 let chatOpen = false;
