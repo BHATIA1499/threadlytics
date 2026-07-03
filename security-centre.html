@@ -679,6 +679,31 @@ tr:hover td { background: var(--bg); }
         </div>
       </div>
     </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="icon">🔐</span> Your Data, Your Control</div>
+      </div>
+      <div style="font-size:12px;color:var(--ink-soft);line-height:1.7">
+        Your trading and supplier data is <strong style="color:var(--ink)">encrypted with AES-256-GCM</strong>,
+        isolated to your account, and <strong style="color:var(--ink)">never sold or shared with any third-party
+        company</strong>. You can remove any dataset at any time — permanently, with no way for us to recover it.
+        Deleting individual files from your Data Workspace erases them instantly. Use the option below to wipe
+        <em>everything</em> at once.
+      </div>
+      <div style="margin-top:18px;padding:16px;border:1px solid #fecaca;background:#fef2f2;border-radius:12px">
+        <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px">⚠ Delete all my data</div>
+        <div style="font-size:12px;color:var(--ink-soft);line-height:1.6;margin-bottom:12px">
+          Permanently erases every uploaded dataset and its analysis from our servers. Your account and
+          subscription are kept. This cannot be undone. Type <strong>DELETE</strong> to confirm.
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <input type="text" id="delete-all-confirm" placeholder="Type DELETE"
+                 style="flex:1;min-width:140px;padding:10px 12px;border:1px solid #fecaca;border-radius:8px;font-size:13px;font-weight:600;letter-spacing:0.05em">
+          <button class="btn-save" style="background:var(--red)" onclick="deleteAllData()">Erase everything</button>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ── AUDIT LOGS ──────────────────────────────────────── -->
@@ -1050,6 +1075,33 @@ async function saveRetention() {
     showToast(`Retention policy updated — files will be deleted after ${hours} hours`, 'success');
   } catch(e) {
     showToast('Failed to update retention policy', 'error');
+  }
+}
+
+// ── Delete ALL my data ─────────────────────────────────────────
+async function deleteAllData() {
+  const field = document.getElementById('delete-all-confirm');
+  const val = (field.value || '').trim().toUpperCase();
+  if (val !== 'DELETE') {
+    showToast('Type DELETE to confirm', 'error');
+    field.focus();
+    return;
+  }
+  if (!confirm('This permanently erases ALL of your uploaded data and analysis. This cannot be undone. Continue?')) return;
+  try {
+    const csrf = sessionStorage.getItem('csrf_token') || '';
+    const r = await fetch('/api/data/delete-all', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf },
+      credentials: 'include',
+      body: JSON.stringify({ confirm: 'DELETE' }),
+    });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(d.error || 'Failed');
+    field.value = '';
+    showToast(`All data erased${typeof d.deleted_count === 'number' ? ` (${d.deleted_count} file${d.deleted_count===1?'':'s'})` : ''}.`, 'success');
+  } catch(e) {
+    showToast('Failed to delete data. Please try again.', 'error');
   }
 }
 
