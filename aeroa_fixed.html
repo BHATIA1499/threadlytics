@@ -106,8 +106,8 @@ body {
   position: relative; z-index: 1;
   max-width: 1140px; margin: 0 auto;
   background: rgba(255,255,255,0.72);
-  backdrop-filter: blur(12px) saturate(1.4);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  
   box-shadow: 0 0 100px rgba(0,0,0,0.08);
   min-height: 100vh;
 }
@@ -117,7 +117,7 @@ body {
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 48px; height: 68px;
   background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   border-bottom: 1px solid rgba(168,197,160,0.18);
   position: sticky; top: 0; z-index: 100;
   transition: box-shadow 0.3s;
@@ -159,8 +159,8 @@ body {
 /* ── MOBILE MENU ── */
 #mobile-menu {
   display: none; position: fixed; top: 68px; left: 0; right: 0; z-index: 999;
-  background: rgba(255,255,255,0.97); backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(255,255,255,0.97); -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
+  
   border-bottom: 1px solid rgba(168,197,160,0.2);
   padding: 12px 16px 20px; flex-direction: column; gap: 2px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.08);
@@ -215,8 +215,8 @@ body {
 .headline-bubble {
   position: relative; z-index: 3;
   background: rgba(255,255,255,0.38);
-  backdrop-filter: blur(20px) saturate(1.5);
-  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);
+  
   border: 1.5px solid rgba(255,255,255,0.72);
   border-radius: 28px;
   padding: 40px 52px 32px;
@@ -267,11 +267,11 @@ h1 {
 }
 .btn-mint { background: var(--mint); color: white; box-shadow: 0 4px 18px rgba(168,197,160,0.45); }
 .btn-mint:hover { background: var(--mint-d); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(168,197,160,0.55); }
-.btn-outline { background: rgba(255,255,255,0.55); color: var(--text2); border: 1.5px solid var(--gray-m); backdrop-filter: blur(10px); }
+.btn-outline { background: rgba(255,255,255,0.55); color: var(--text2); border: 1.5px solid var(--gray-m); -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px); }
 .btn-outline:hover { border-color: var(--mint-l); color: var(--text); background: rgba(168,197,160,0.08); }
 .btn-white { background: white; color: var(--mint-d); box-shadow: 0 4px 20px rgba(0,0,0,0.10); }
 .btn-white:hover { background: var(--cream); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.14); }
-.btn-ghost { background: rgba(255,255,255,0.18); color: white; border: 1.5px solid rgba(255,255,255,0.50); backdrop-filter: blur(8px); }
+.btn-ghost { background: rgba(255,255,255,0.18); color: white; border: 1.5px solid rgba(255,255,255,0.50); -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px); }
 .btn-ghost:hover { background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.80); }
 
 /* ══ LIQUID GLASS BUBBLES ══ */
@@ -285,8 +285,8 @@ h1 {
 .bubble { pointer-events: auto; } /* individual bubbles stay clickable */
 .bubble {
   position: absolute; border-radius: 50%;
-  backdrop-filter: blur(28px) saturate(2.4);
-  -webkit-backdrop-filter: blur(28px) saturate(2.4);
+  -webkit-backdrop-filter:blur(28px) saturate(2.4);backdrop-filter:blur(28px) saturate(2.4);
+  
   border: 1.5px solid rgba(255,255,255,0.80);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   cursor: pointer; user-select: none;
@@ -352,7 +352,7 @@ h1 {
 @keyframes cpfly { 0%{transform:translate(0,0) rotate(0deg) scale(1);opacity:1} 100%{transform:translate(var(--tx),var(--ty)) rotate(var(--rot)) scale(0.4);opacity:0} }
 
 /* ══ TICKER ══ */
-.ticker { background: rgba(255,255,255,0.65); border-top: 1px solid var(--gray-m); border-bottom: 1px solid var(--gray-m); padding: 11px 0; overflow: hidden; white-space: nowrap; backdrop-filter: blur(10px); }
+.ticker { background: rgba(255,255,255,0.65); border-top: 1px solid var(--gray-m); border-bottom: 1px solid var(--gray-m); padding: 11px 0; overflow: hidden; white-space: nowrap; -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px); }
 .ticker-track { display: inline-flex; white-space: nowrap; width: max-content; animation: scroll 20s linear infinite; will-change: transform; }
 .t-item { display: inline-block; padding: 0 30px; font-size: 12px; color: var(--text3); }
 .t-item strong { color: var(--mint-d); font-weight: 700; margin-right: 6px; }
@@ -369,8 +369,8 @@ h2 .hl2 { color: var(--blush-d); }
 /* ══ GLASS CARD BASE ══ */
 .gc {
   background: rgba(255,255,255,0.60);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
+  
   border: 1.5px solid rgba(255,255,255,0.75);
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9);
@@ -381,7 +381,7 @@ h2 .hl2 { color: var(--blush-d); }
 /* ══ FEATURES ══ */
 .feat-section {
   background: linear-gradient(145deg, rgba(255,215,225,0.55) 0%, rgba(244,192,168,0.45) 50%, rgba(255,230,235,0.50) 100%);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   border-top: 1px solid rgba(255,255,255,0.5);
   position: relative; overflow: hidden;
 }
@@ -408,7 +408,7 @@ h2 .hl2 { color: var(--blush-d); }
 .feat-card p { font-size: 13px; color: var(--text2); line-height: 1.68; }
 
 /* ══ HOW IT WORKS ══ */
-.how-section { background: rgba(255,255,255,0.75); backdrop-filter: blur(16px); border-top: 1px solid var(--gray-m); }
+.how-section { background: rgba(255,255,255,0.75); -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px); border-top: 1px solid var(--gray-m); }
 .how-inner { max-width: 1048px; margin: 0 auto; }
 .steps-row { display: flex; gap: 14px; margin-top: 44px; }
 .step-card { flex: 1; padding: 28px 22px; position: relative; }
@@ -418,7 +418,7 @@ h2 .hl2 { color: var(--blush-d); }
 .step-card p { font-size: 12.5px; color: var(--text2); line-height: 1.65; }
 
 /* ══ STATS ══ */
-.stats-section { background: rgba(248,250,252,0.78); backdrop-filter: blur(16px); border-top: 1px solid var(--gray-m); }
+.stats-section { background: rgba(248,250,252,0.78); -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px); border-top: 1px solid var(--gray-m); }
 .stats-inner { max-width: 1048px; margin: 0 auto; }
 .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; margin-top: 44px; }
 .stat-card { padding: 32px 20px; text-align: center; border-top: 3px solid var(--mint); }
@@ -432,7 +432,7 @@ h2 .hl2 { color: var(--blush-d); }
 .stat-l { font-size: 12px; font-weight: 500; color: var(--text2); }
 
 /* ══ AI DEMO ══ */
-.demo-section { background: rgba(250,250,247,0.72); backdrop-filter: blur(16px); border-top: 1px solid var(--gray-m); border-bottom: 1px solid var(--gray-m); }
+.demo-section { background: rgba(250,250,247,0.72); -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px); border-top: 1px solid var(--gray-m); border-bottom: 1px solid var(--gray-m); }
 .demo-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; max-width: 1048px; margin: 0 auto; }
 .demo-pts { display: flex; flex-direction: column; gap: 14px; margin-top: 26px; }
 .dp { display: flex; gap: 13px; align-items: flex-start; padding: 15px 16px; transition: all 0.22s; }
@@ -463,7 +463,7 @@ h2 .hl2 { color: var(--blush-d); }
 /* ══ PRICING ══ */
 .pricing-section {
   background: linear-gradient(145deg, rgba(244,192,168,0.55) 0%, rgba(255,220,230,0.60) 40%, rgba(184,196,232,0.45) 100%);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   border-top: 1px solid rgba(255,255,255,0.5);
   position: relative; overflow: hidden;
 }
@@ -486,8 +486,8 @@ h2 .hl2 { color: var(--blush-d); }
 .plan {
   padding: 36px 28px; position: relative;
   background: rgba(255,255,255,0.42);
-  backdrop-filter: blur(22px) saturate(1.6);
-  -webkit-backdrop-filter: blur(22px) saturate(1.6);
+  -webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);
+  
   border: 1.5px solid rgba(255,255,255,0.78);
   border-radius: 22px;
   box-shadow: 0 8px 32px rgba(200,150,160,0.12), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(0,0,0,0.03);
@@ -497,7 +497,7 @@ h2 .hl2 { color: var(--blush-d); }
 /* liquid glass price block */
 .plan-price-block {
   background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(16px) saturate(1.5);
+  -webkit-backdrop-filter:blur(16px) saturate(1.5);backdrop-filter:blur(16px) saturate(1.5);
   border: 1.5px solid rgba(255,255,255,0.80);
   border-radius: 16px;
   padding: 16px 20px 10px;
@@ -536,11 +536,11 @@ h2 .hl2 { color: var(--blush-d); }
 .plan-feats li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: var(--text2); }
 .chk { flex-shrink: 0; margin-top: 2px; }
 .plan-btn { width: 100%; text-align: center; display: block; padding: 13px; border-radius: 99px; font-family: var(--body); font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.22s; cursor: pointer; }
-.pb-outline { background: rgba(255,255,255,0.55); color: var(--mint-d); border: 1.5px solid rgba(168,197,160,0.60); backdrop-filter: blur(8px); }
+.pb-outline { background: rgba(255,255,255,0.55); color: var(--mint-d); border: 1.5px solid rgba(168,197,160,0.60); -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px); }
 .pb-outline:hover { background: rgba(168,197,160,0.18); border-color: var(--mint); }
 .pb-fill   { background: linear-gradient(135deg,var(--mint),var(--mint-d)); color: white; border: none; box-shadow: 0 4px 18px rgba(125,170,117,0.42); }
 .pb-fill:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(125,170,117,0.54); }
-.pb-peri   { background: rgba(255,255,255,0.55); color: var(--peri-d); border: 1.5px solid rgba(184,196,232,0.60); backdrop-filter: blur(8px); }
+.pb-peri   { background: rgba(255,255,255,0.55); color: var(--peri-d); border: 1.5px solid rgba(184,196,232,0.60); -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px); }
 .pb-peri:hover { background: rgba(184,196,232,0.18); border-color: var(--peri); }
 .plan-saving { font-size: 11px; color: var(--mint-d); font-weight: 600; text-align: center; margin-top: 10px; display: none; }
 
@@ -561,7 +561,7 @@ h2 .hl2 { color: var(--blush-d); }
   position: relative; overflow: hidden;
   padding: 92px 48px; text-align: center;
   background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);
   border-top: 1px solid rgba(255,255,255,0.7);
 }
 /* animated chart shapes in cta bg */
@@ -578,7 +578,7 @@ h2 .hl2 { color: var(--blush-d); }
 /* ══ DEMO MODAL ══ */
 #demo-modal {
   display: none; position: fixed; inset: 0; z-index: 10000;
-  background: rgba(10,10,20,0.82); backdrop-filter: blur(18px);
+  background: rgba(10,10,20,0.82); -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   align-items: center; justify-content: center; padding: 20px;
 }
 #demo-modal.open { display: flex; }
@@ -637,7 +637,7 @@ h2 .hl2 { color: var(--blush-d); }
 .upload-zone {
   width: 100%; max-width: 420px; border: 2px dashed rgba(168,197,160,0.6);
   border-radius: 18px; padding: 44px 32px; text-align: center;
-  background: rgba(255,255,255,0.7); backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.7); -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   position: relative; overflow: hidden;
 }
 .upload-zone::before {
@@ -1098,14 +1098,39 @@ footer { background: #1A1A26; padding: 56px 48px 32px; border-top: 1px solid rgb
   <div class="hero-charts" aria-hidden="true">
     <div class="hero-charts-inner">
       <!-- Glassmorphism sphere bubbles — match KPI bubble design -->
-      <div class="hbub" style="width:460px;height:460px;top:-12%;left:-10%;background:rgba(168,197,160,0.24);backdrop-filter:blur(36px) saturate(2)"></div>
-      <div class="hbub" style="width:340px;height:340px;top:8%;right:-6%;background:rgba(184,196,232,0.22);backdrop-filter:blur(30px) saturate(2)"></div>
-      <div class="hbub" style="width:280px;height:280px;bottom:2%;left:4%;background:rgba(244,192,168,0.20);backdrop-filter:blur(28px) saturate(2)"></div>
-      <div class="hbub" style="width:300px;height:300px;bottom:-4%;right:3%;background:rgba(240,196,160,0.20);backdrop-filter:blur(28px) saturate(2)"></div>
-      <div class="hbub" style="width:190px;height:190px;top:44%;left:24%;background:rgba(200,223,191,0.24);backdrop-filter:blur(22px) saturate(2)"></div>
-      <div class="hbub" style="width:160px;height:160px;top:28%;right:22%;background:rgba(184,196,232,0.20);backdrop-filter:blur(20px) saturate(2)"></div>
-      <div class="hbub" style="width:110px;height:110px;top:18%;left:36%;background:rgba(244,192,168,0.18);backdrop-filter:blur(18px) saturate(2)"></div>
-      <div class="hbub" style="width:90px;height:90px;bottom:18%;right:28%;background:rgba(168,197,160,0.20);backdrop-filter:blur(16px) saturate(2)"></div>
+      <div class="hbub" style="width:460px;height:460px;top:-12%;left:-10%;background:rgba(168,197,160,0.24);-webkit-backdrop-filter:blur(36px) saturate(2)"></div>
+      <div class="hbub" style="width:340px;backdrop-filter:blur(36px) saturate(2)"></div>
+      <div class="hbub" style="width:340px;height:340px;top:8%;right:-6%;background:rgba(184,196,232,0.22);-webkit-backdrop-filter:blur(30px) saturate(2)"></div>
+      <div class="hbub" style="width:280px;backdrop-filter:blur(30px) saturate(2)"></div>
+      <div class="hbub" style="width:280px;height:280px;bottom:2%;left:4%;background:rgba(244,192,168,0.20);-webkit-backdrop-filter:blur(28px) saturate(2)"></div>
+      <div class="hbub" style="width:300px;backdrop-filter:blur(28px) saturate(2)"></div>
+      <div class="hbub" style="width:300px;height:300px;bottom:-4%;right:3%;background:rgba(240,196,160,0.20);-webkit-backdrop-filter:blur(28px) saturate(2)"></div>
+      <div class="hbub" style="width:190px;backdrop-filter:blur(28px) saturate(2)"></div>
+      <div class="hbub" style="width:190px;height:190px;top:44%;left:24%;background:rgba(200,223,191,0.24);-webkit-backdrop-filter:blur(22px) saturate(2)"></div>
+      <div class="hbub" style="width:160px;backdrop-filter:blur(22px) saturate(2)"></div>
+      <div class="hbub" style="width:160px;height:160px;top:28%;right:22%;background:rgba(184,196,232,0.20);-webkit-backdrop-filter:blur(20px) saturate(2)"></div>
+      <div class="hbub" style="width:110px;backdrop-filter:blur(20px) saturate(2)"></div>
+      <div class="hbub" style="width:110px;height:110px;top:18%;left:36%;background:rgba(244,192,168,0.18);-webkit-backdrop-filter:blur(18px) saturate(2)"></div>
+      <div class="hbub" style="width:90px;backdrop-filter:blur(18px) saturate(2)"></div>
+      <div class="hbub" style="width:90px;height:90px;bottom:18%;right:28%;background:rgba(168,197,160,0.20);-webkit-backdrop-filter:blur(16px) saturate(2)"></div>
+    </div>
+  </div>
+
+  <div class="hero-badge">
+    <div class="hero-badge-dot"></div>
+    Built by a merchandiser, for merchandisers
+  </div>
+
+  <!-- Headline in liquid-glass bubble -->
+  <div class="headline-bubble">
+    <h1>
+      Your AI<br>
+      merchandising assistant.
+    </h1>
+    <p class="hero-sub">Upload your trading data and get clear, commercial answers in minutes — what to reorder, what to mark down, and where the margin is. Like a senior merchandiser, on call.</p>
+    <div class="hero-btns">
+      <a href="/signup" class="btn btn-mint">Start 14-day free trial</a>
+      <a href="#" class="btn btn-outline" id="open-demo-btn" onclick="openDemoModal();backdrop-filter:blur(16px) saturate(2)"></div>
     </div>
   </div>
 

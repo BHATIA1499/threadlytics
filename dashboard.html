@@ -24,7 +24,7 @@
 body{font-family:var(--body);background:var(--bg-grad);background-attachment:fixed;color:var(--text);display:flex;min-height:100vh;-webkit-font-smoothing:antialiased}
 
 /* ── SIDEBAR ── */
-#sidebar{width:var(--nav-w);flex-shrink:0;background:rgba(255,255,255,0.82);backdrop-filter:blur(20px);
+#sidebar{width:var(--nav-w);flex-shrink:0;background:rgba(255,255,255,0.82);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   border-right:1px solid rgba(168,197,160,0.20);display:flex;flex-direction:column;
   position:fixed;top:0;left:0;bottom:0;z-index:50;transition:transform 0.3s}
 .sb-logo{padding:18px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;text-decoration:none}
@@ -62,13 +62,13 @@ body{font-family:var(--body);background:var(--bg-grad);background-attachment:fix
 #main{margin-left:var(--nav-w);flex:1;display:flex;flex-direction:column;min-height:100vh}
 
 /* ── TOPBAR ── */
-#topbar{background:rgba(255,255,255,0.80);backdrop-filter:blur(16px);border-bottom:1px solid rgba(168,197,160,0.18);
+#topbar{background:rgba(255,255,255,0.80);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid rgba(168,197,160,0.18);
   padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:40}
 .topbar-left{display:flex;align-items:center;gap:14px}
 .nav-hamburger{display:none;align-items:center;justify-content:center;width:40px;height:40px;margin-left:-8px;
   border:none;background:none;color:var(--text);border-radius:9px;cursor:pointer;flex-shrink:0;transition:background 0.15s}
 .nav-hamburger:hover{background:rgba(125,170,117,0.10)}
-#sb-scrim{display:none;position:fixed;inset:0;background:rgba(30,40,30,0.42);backdrop-filter:blur(1px);z-index:45}
+#sb-scrim{display:none;position:fixed;inset:0;background:rgba(30,40,30,0.42);-webkit-backdrop-filter:blur(1px);backdrop-filter:blur(1px);z-index:45}
 #sb-scrim.show{display:block}
 .topbar-title{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--text)}
 .role-badge{padding:3px 11px;border-radius:99px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:1.5px solid}
@@ -118,7 +118,7 @@ body{font-family:var(--body);background:var(--bg-grad);background-attachment:fix
 
 /* ── ANALYSIS LOADER OVERLAY ── */
 #analysis-loader{position:fixed;inset:0;z-index:900;display:none;align-items:center;justify-content:center;
-  background:rgba(247,245,240,0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  background:rgba(247,245,240,0.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);}
 #analysis-loader.show{display:flex;animation:alFade .35s ease}
 @keyframes alFade{from{opacity:0}to{opacity:1}}
 .al-card{position:relative;width:min(420px,90vw);padding:38px 34px;text-align:center;
@@ -143,7 +143,7 @@ body{font-family:var(--body);background:var(--bg-grad);background-attachment:fix
 #upload-toast{
   position:fixed;top:68px;right:20px;z-index:9999;
   min-width:280px;max-width:420px;
-  background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.97);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   border:1px solid var(--glass-border);border-radius:12px;
   box-shadow:0 8px 32px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.06);
   padding:14px 16px 14px 14px;
@@ -167,7 +167,7 @@ body{font-family:var(--body);background:var(--bg-grad);background-attachment:fix
 @keyframes toast-load{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
 /* ── GLASS CARD ── */
-.glass{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:16px;box-shadow:var(--shadow)}
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:16px;box-shadow:var(--shadow)}
 
 /* ── KPI CARDS ── */
 .kpi-grid{display:grid;gap:12px;margin-bottom:18px}
@@ -334,7 +334,7 @@ tr:hover td{background:rgba(168,197,160,0.05);transition:background 0.1s}
 /* ══════════════════════════════════
    DIRECTOR VIEW
 ══════════════════════════════════ */
-.exec-header{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);
+.exec-header{background:var(--glass);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--glass-border);
   box-shadow:var(--shadow);border-radius:20px;padding:28px 32px;
   margin-bottom:16px;position:relative;overflow:hidden;border-top:3px solid rgba(125,170,117,0.4)}
 .exec-header::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;
@@ -700,7 +700,7 @@ tr:hover td{background:rgba(168,197,160,0.05);transition:background 0.1s}
 #trial-banner .tb-x{background:none;border:none;color:var(--text3);font-size:15px;cursor:pointer;padding:2px 6px}
 
 /* ── Upgrade modal ── */
-.upg-overlay{position:fixed;inset:0;background:rgba(20,24,20,.55);backdrop-filter:blur(4px);z-index:1000;
+.upg-overlay{position:fixed;inset:0;background:rgba(20,24,20,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);z-index:1000;
   display:none;align-items:center;justify-content:center;padding:24px;animation:upgFade .2s ease}
 .upg-overlay.open{display:flex}
 @keyframes upgFade{from{opacity:0}to{opacity:1}}
@@ -730,7 +730,7 @@ tr:hover td{background:rgba(168,197,160,0.05);transition:background 0.1s}
 .upg-note{font-size:11.5px;color:var(--text3);text-align:center;margin-top:18px}
 
 /* ── Onboarding ── */
-.onb-overlay{position:fixed;inset:0;background:rgba(20,24,20,.6);backdrop-filter:blur(5px);z-index:1100;
+.onb-overlay{position:fixed;inset:0;background:rgba(20,24,20,.6);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);z-index:1100;
   display:none;align-items:center;justify-content:center;padding:24px}
 .onb-overlay.open{display:flex;animation:upgFade .25s ease}
 .onb-modal{background:var(--bg,#fff);border:1px solid var(--glass-border);border-radius:22px;max-width:600px;width:100%;
@@ -804,7 +804,7 @@ tr:hover td{background:rgba(168,197,160,0.05);transition:background 0.1s}
 .ws-tl-card .kr b{color:var(--mint-d)}
 
 /* detail side panel */
-.ws-panel-overlay{position:fixed;inset:0;background:rgba(20,20,35,.32);backdrop-filter:blur(2px);z-index:900;opacity:0;
+.ws-panel-overlay{position:fixed;inset:0;background:rgba(20,20,35,.32);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:900;opacity:0;
   pointer-events:none;transition:opacity .22s}
 .ws-panel-overlay.open{opacity:1;pointer-events:auto}
 .ws-panel{position:fixed;top:0;right:0;height:100vh;width:min(460px,92vw);background:var(--bg-grad);background-attachment:fixed;
@@ -945,7 +945,7 @@ tr:hover td{background:rgba(168,197,160,0.05);transition:background 0.1s}
 .cc-recur .badge{font-size:10px;font-weight:800;background:#C77A38;color:#fff;border-radius:99px;padding:3px 9px;white-space:nowrap}
 
 /* Export Centre */
-.ws-export-overlay{position:fixed;inset:0;background:rgba(20,20,35,.4);backdrop-filter:blur(3px);z-index:950;display:none;align-items:center;justify-content:center;padding:24px}
+.ws-export-overlay{position:fixed;inset:0;background:rgba(20,20,35,.4);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);z-index:950;display:none;align-items:center;justify-content:center;padding:24px}
 .ws-export-overlay.open{display:flex}
 .ws-export-modal{background:var(--bg-grad);background-attachment:fixed;border-radius:18px;width:min(640px,96vw);max-height:88vh;overflow-y:auto;box-shadow:0 24px 70px rgba(0,0,0,.3);border:1px solid var(--glass-border)}
 .ws-export-head{display:flex;align-items:flex-start;gap:12px;padding:22px 24px 14px;border-bottom:1px solid var(--border)}
@@ -5100,7 +5100,7 @@ function fmtK(n){ if(n>=1e6) return (n/1e6).toFixed(1)+'M'; if(n>=1e3) return (n
   font-size:20px;z-index:200;transition:transform 0.2s,box-shadow 0.2s}
 #ai-chat-fab:hover{box-shadow:0 8px 30px rgba(125,170,117,0.55)}
 #ai-chat-panel{display:none;position:fixed;bottom:92px;right:28px;width:360px;height:500px;
-  background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.96);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   border:1px solid rgba(168,197,160,0.35);border-radius:20px;
   box-shadow:0 16px 60px rgba(0,0,0,0.14);z-index:199;flex-direction:column;overflow:hidden}
 #ai-chat-header{padding:16px 18px;border-bottom:1px solid rgba(168,197,160,0.18);
