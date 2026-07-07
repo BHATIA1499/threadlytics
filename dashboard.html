@@ -20,6 +20,11 @@
   --serif:'Montserrat',sans-serif;--body:'Inter',system-ui,sans-serif;
   --nav-w:220px;
   --role-accent:#7DAA75;
+  /* Motion system — one rhythm across the whole product */
+  --ease-out:cubic-bezier(.16,1,.3,1);--ease-soft:cubic-bezier(.22,1,.36,1);
+  --dur-fast:140ms;--dur:200ms;--dur-slow:280ms;
+  --elev-1:0 4px 20px rgba(0,0,0,0.05),inset 0 1px 0 rgba(255,255,255,0.95);
+  --elev-2:0 10px 30px rgba(30,30,45,0.10),0 2px 8px rgba(30,30,45,0.05);
 }
 body{font-family:var(--body);background:var(--bg-grad);background-attachment:fixed;color:var(--text);display:flex;min-height:100vh;-webkit-font-smoothing:antialiased}
 
@@ -497,6 +502,45 @@ tr:hover td{background:rgba(168,197,160,0.05);transition:background 0.1s}
   /* AI chat: fit the viewport instead of a fixed 360px panel */
   #ai-chat-panel{left:12px;right:12px;width:auto;bottom:84px;height:min(70vh,460px)}
   #ai-chat-fab{bottom:20px;right:20px}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PREMIUM MOTION & INTERACTION LAYER
+   Purposeful motion only — every transition communicates state.
+   GPU transform/opacity only · 140–280ms · reduced-motion safe.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Cards feel physical: lift + deepen shadow on hover (state = "reachable") */
+.kpi{transition:box-shadow var(--dur) var(--ease-out),transform var(--dur) var(--ease-out)}
+.kpi:hover{transform:translateY(-2px);box-shadow:var(--elev-2)}
+.table-card{transition:box-shadow var(--dur) var(--ease-out),transform var(--dur) var(--ease-out)}
+.table-card:hover{transform:translateY(-2px);box-shadow:var(--elev-2)}
+
+/* Clickable hub / launcher cards get the same physical response */
+.empty-sample-cta,.sb-ws-btn,.ws-navbtn{transition:transform var(--dur) var(--ease-out),box-shadow var(--dur) var(--ease-out),background var(--dur-fast) var(--ease-out)}
+.empty-sample-cta:hover,.ws-navbtn:hover{transform:translateY(-2px);box-shadow:var(--elev-2)}
+
+/* Buttons: press feedback via transform (scale) — never shifts layout bounds */
+.upload-btn{transition:transform var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out)}
+button:not(:disabled):active{transform:scale(.985)}
+.upload-btn:not(:disabled):active{transform:scale(.97)}
+
+/* Keyboard focus rings — visible, on-brand, previously absent (a11y) */
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid var(--role-accent);outline-offset:2px;border-radius:8px}
+
+/* Content enters with a subtle upward rise — spatial continuity between views */
+.role-section.active{animation:sectionIn var(--dur-slow) var(--ease-out) both}
+@keyframes sectionIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Figures use tabular numerals so count-up never causes width jitter */
+.kpi-value{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+/* Respect users who ask for reduced motion — disable this layer's motion */
+@media(prefers-reduced-motion:reduce){
+  .kpi:hover,.table-card:hover,.empty-sample-cta:hover,.ws-navbtn:hover{transform:none}
+  button:not(:disabled):active,.upload-btn:not(:disabled):active{transform:none}
+  .role-section.active{animation:none}
 }
 
 /* ── DATA WORKSPACE ── */
