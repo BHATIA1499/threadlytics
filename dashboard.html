@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard — Skuvvy</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%237DAA75'/><circle cx='16' cy='16' r='6' fill='%23A8C5A0'/></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='4' y='4' width='92' height='92' rx='26' fill='%231a1a22'/><path d='M68,36C68,26,59,22,49,22C36,22,30,28,30,37C30,46,40,49,50,51C60,53,70,56,70,65C70,75,61,79,49,79C38,79,31,75,30,66' fill='none' stroke='white' stroke-width='11' stroke-linecap='round' stroke-linejoin='round'/><circle cx='76' cy='28' r='5' fill='%237DAA75'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -34,6 +34,7 @@ body{font-family:var(--body);background:var(--bg-grad);background-attachment:fix
   position:fixed;top:0;left:0;bottom:0;z-index:50;transition:transform 0.3s}
 .sb-logo{padding:18px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;text-decoration:none}
 .sb-logo-dot{width:8px;height:8px;border-radius:50%;background:var(--role-accent);box-shadow:0 0 8px rgba(125,170,117,0.5);transition:background 0.3s}
+.sb-logo-mark{width:22px;height:22px;flex-shrink:0}
 .sb-logo-text{font-family:var(--serif);font-size:17px;font-weight:800;color:var(--text)}
 .sb-logo-text span{color:var(--role-accent);transition:color 0.3s}
 .sb-nav{flex:1;padding:10px 10px;overflow-y:auto}
@@ -1113,7 +1114,7 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,te
 <!-- SIDEBAR -->
 <nav id="sidebar">
   <a href="/" class="sb-logo">
-    <div class="sb-logo-dot"></div>
+    <svg class="sb-logo-mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M70,35C70,24,60,20,49,20C34,20,27,27,27,37C27,47,39,50,50,52C61,54,73,57,73,68C73,79,63,83,49,83C36,83,28,79,27,69" fill="none" stroke="#1E1E2A" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/><circle cx="82" cy="23" r="7" fill="#7DAA75"/></svg>
     <div class="sb-logo-text">Skuvv<span>y</span></div>
   </a>
 
@@ -2317,7 +2318,8 @@ function updateRoleStyling() {
   // Logo always stays Skuvvy green
   document.documentElement.style.setProperty('--role-accent', '#7DAA75');
   document.querySelector('.sb-logo-text span').style.color = '#7DAA75';
-  document.querySelector('.sb-logo-dot').style.background = '#7DAA75';
+  const _sbDot = document.querySelector('.sb-logo-dot');
+  if (_sbDot) _sbDot.style.background = '#7DAA75';
 }
 
 function showRoleView() {
