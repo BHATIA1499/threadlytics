@@ -1633,7 +1633,7 @@ def auth_login():
         # a reset link without disclosing the lockout to an attacker.
         try:
             supabase.auth.reset_password_for_email(
-                email, {"redirect_to": "https://aeroa-ai.up.railway.app/reset-password"})
+                email, {"redirect_to": request.host_url.rstrip("/") + "/reset-password"})
         except Exception:
             pass
     time.sleep(min(lockout.delay_for_current(email), 5.0))  # progressive delay
@@ -1744,7 +1744,7 @@ def auth_forgot_password():
         return _generic
     email = data.email
     try:
-        redirect_url = "https://aeroa-ai.up.railway.app/reset-password"
+        redirect_url = request.host_url.rstrip("/") + "/reset-password"
         supabase.auth.reset_password_for_email(email, {"redirect_to": redirect_url})
     except Exception as e:
         app.logger.error(f"Forgot password error: {e}")
@@ -4487,7 +4487,7 @@ def _build_pptx(report, analysis):
              font_size=36, bold=True, color=WHITE, align=PP_ALIGN.CENTER)
     add_text(s, "AI Merchandising Intelligence", 0, 4.8, 13.33, 0.6,
              font_size=14, color=MINT_L, align=PP_ALIGN.CENTER)
-    add_text(s, f"Report generated {today} · aeroa-ai.up.railway.app",
+    add_text(s, f"Report generated {today} · skuvvy-ai.up.railway.app",
              0, 6.5, 13.33, 0.5, font_size=10,
              color=RGBColor(0x55,0x66,0x77), align=PP_ALIGN.CENTER)
 
