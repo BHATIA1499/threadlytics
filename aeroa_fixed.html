@@ -396,6 +396,10 @@ h2 .hl2 { color: var(--blush-d); }
 /* Let the intro paragraph fill the wide right column instead of leaving a gap.
    Local override only — the global .sec-sub (460px) is unchanged elsewhere. */
 .feat-header-right .sec-sub { max-width: 640px; margin-top: 0; font-size: 18px; }
+/* Security header: top-align the two columns so the eyebrow + paragraph share
+   a clean top edge (the centered default made the right column float). */
+#security .feat-header { align-items: start; }
+#security .feat-header-right { gap: 22px; padding-top: 2px; }
 .feat-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
 .feat-card { padding: 28px 24px; position: relative; overflow: hidden; }
 .feat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; opacity: 0; transition: opacity 0.3s; }
