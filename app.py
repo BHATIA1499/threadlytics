@@ -293,6 +293,18 @@ def _col(df, *candidates):
             return normalised[key]
     return None
 
+def _col_fuzzy(df, include, exclude=()):
+    """Fallback matcher used only when the explicit candidate list misses an
+    unusual header spelling. Returns the first column whose normalised name
+    contains any 'include' token and none of the 'exclude' tokens."""
+    for c in df.columns:
+        n = str(c).lower().replace(" ", "").replace("_", "")
+        if any(x in n for x in exclude):
+            continue
+        if any(x in n for x in include):
+            return c
+    return None
+
 def _safe_float(val, default=0.0):
     try:
         f = float(val)
@@ -337,8 +349,9 @@ def _best_sheet(file_obj, filename):
     For multi-sheet Excel files, pick the sheet that has the most
     recognisable merchandising columns rather than blindly taking sheet 0.
     """
-    KEY_COLS = {"sku", "productcode", "itemcode", "revenue", "sales",
-                "unitssold", "units", "qty", "stockonhand", "stock"}
+    KEY_COLS = {"sku", "productcode", "itemcode", "item", "revenue", "sales",
+                "salesvalue", "turnover", "unitssold", "unitsold", "unitssoldqty",
+                "sold", "units", "qty", "quantity", "stockonhand", "stock"}
     xl = pd.ExcelFile(file_obj)
     best_sheet, best_score = xl.sheet_names[0], -1
     for name in xl.sheet_names:
@@ -473,13 +486,22 @@ def parse_upload(file_obj, filename):
 
 def analyse(df):
     # ── Expanded column detection — covers all app export formats ─
-    col_sku   = _col(df, "SKU","sku","ProductCode","product_code","ItemCode","item_code",
-                         "Item Code","Product Code","Style","StyleCode","style_code")
-    col_units = _col(df, "UnitsSold","units_sold","Units","Qty","Quantity","qty",
-                         "Units Sold","Sales Units","SalesUnits","Pieces","pieces")
-    col_rev   = _col(df, "Revenue","revenue","Sales","SalesValue","sales_value",
-                         "Total Revenue","TotalRevenue","Net Sales","NetSales",
-                         "Total Sales","TotalSales","Turnover","turnover")
+    col_sku   = _col(df, "SKU","sku","SKU Code","SKUCode","SKU Number","ProductCode","product_code",
+                         "ItemCode","item_code","Item Code","Product Code","Item","Item Number",
+                         "ItemNumber","ItemID","Item ID","ProductID","Product ID","Product Number",
+                         "Style","StyleCode","style_code","Style Number","Style No","Article",
+                         "ArticleCode","Article Code","Article Number","Barcode","EAN","Reference",
+                         "Ref","Product Ref","Product SKU")
+    col_units = _col(df, "UnitsSold","units_sold","Units Sold","Unit Sold","UnitSold","unit_sold",
+                         "Units","unit","Qty","Quantity","qty","quantity","Sales Units","SalesUnits",
+                         "Sales Qty","SalesQty","Sales Quantity","SalesQuantity","Qty Sold","QtySold",
+                         "Sold Units","SoldUnits","Sold Qty","SoldQty","Units Sold Qty","Sold",
+                         "Pieces","pieces","Pcs","pcs","Volume","Sales Volume")
+    col_rev   = _col(df, "Revenue","revenue","Revenue £","Revenue GBP","RevenueGBP","Rev","Sales",
+                         "sales","Sales Value","SalesValue","sales_value","Sales £","Sales GBP",
+                         "Sales Amount","SalesAmount","Total Revenue","TotalRevenue","Net Sales","NetSales",
+                         "Total Sales","TotalSales","Gross Sales","GrossSales","Net Revenue","NetRevenue",
+                         "Turnover","turnover","GMV","Takings","Value £","Total Value","TotalValue")
     col_stock = _col(df, "StockOnHand","stock_on_hand","Stock","OnHand","on_hand",
                          "Stock On Hand","CurrentStock","current_stock","Inventory","inventory",
                          "ClosingStock","closing_stock","Units On Hand")
@@ -513,6 +535,21 @@ def analyse(df):
                          "initial_stock","IntakeQty","intake_qty","Opening Stock","Buy Qty")
     col_fp    = _col(df, "FullPriceSales","full_price_sales","FPSales","fp_sales",
                          "Full Price Revenue","FullPriceRevenue","FP Revenue")
+
+    # Forgiving fallback for the 3 REQUIRED columns — catches unusual header
+    # spellings the explicit lists miss (e.g. "UnitSold", "Sales Value").
+    if not col_units:
+        col_units = _col_fuzzy(df, ("unitssold","unitsold","qtysold","soldqty","salesqty",
+                                     "salesunits","soldunits","sold"),
+                               exclude=("price","cost","value","revenue","margin","return",
+                                        "rate","target","forecast","budget","%"))
+    if not col_rev:
+        col_rev = _col_fuzzy(df, ("revenue","sales","turnover","gmv","takings"),
+                             exclude=("unit","qty","quantity","pieces","volume","price","cost",
+                                      "margin","return","target","forecast","budget","%"))
+    if not col_sku:
+        col_sku = _col_fuzzy(df, ("sku","itemcode","productcode","stylecode","articlecode",
+                                  "article","barcode","itemid","productid","itemnumber"))
 
     if not all([col_sku, col_units, col_rev]):
         missing = [n for c,n in [(col_sku,"SKU"),(col_units,"UnitsSold"),(col_rev,"Revenue")] if not c]
